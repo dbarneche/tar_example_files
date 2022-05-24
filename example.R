@@ -1,9 +1,11 @@
 library(targets)
 tar_dir({
   # Parameterized R Markdown:
-  report <- "..."
-  writeLines(lines, "report.Rmd")
-
+  dir.create("doc")
+  report <- readLines("https://raw.githubusercontent.com/dbarneche/tar_example_files/main/doc/report.Rmd")
+  writeLines(lines, "doc/report.Rmd")
+  latex <- readLines("https://raw.githubusercontent.com/dbarneche/tar_example_files/main/doc/template.latex")
+  writeLines(lines, "doc/template.latex")
   tar_script({
     options(tidyverse.quiet = TRUE)
     library(tidyverse)
@@ -21,7 +23,7 @@ tar_dir({
         "doc/template.latex", format = "file"
       ),
       tar_render(raw_pdf,
-        "./report.Rmd", output_dir = "output/doc/",
+        "report.Rmd", output_dir = "output/doc/",
         intermediates_dir = "output/doc/", clean = FALSE
       )
     )
