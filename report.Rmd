@@ -1,0 +1,55 @@
+---
+output: 
+    pdf_document:
+        template: ../../doc/template.latex
+        latex_engine: xelatex
+        keep_tex: TRUE
+standalone: TRUE
+---
+
+```{r setup, include = FALSE}
+library(knitr)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+```
+
+```{r content, results = "hide"}
+library(targets)
+tar_load(my_number)
+tar_load(my_figure)
+tar_read(latex_file)
+```
+
+John Doe\textsuperscript{1,†}
+
+\singlespace \fontsize{10}{12}\selectfont
+\textsuperscript{1}Address
+
+\textsuperscript{†}e-mail: john.doe@email.com
+
+\doublespace \fontsize{12}{14}\selectfont
+
+\textbf{Keywords:} a, b, c
+
+\newpage
+
+MYABSTRACT
+
+Something 
+
+My text which reads `r my_number`.
+
+\newpage
+# Figures
+
+\begin{figure}[ht]
+    \begin{center}
+        \includegraphics[width=1\textwidth]{../output/figures/my_fig.png}
+    \end{center}
+    \caption*{}
+\end{figure}
+Fig. 1. Caption.
+
+\newpage
+\textbf{New section}
+
+Something else.
